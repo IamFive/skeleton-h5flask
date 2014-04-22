@@ -1,0 +1,146 @@
+{% extends "basic.html" %} 
+{% block title %} 番号 {% endblock title %} 
+
+{% block script_import %}
+<script type="text/javascript" src="/static/js/modules/a.js"></script>
+{% endblock script_import%}
+
+{% block content %}
+{% from '/marco/pagination.html' import pagebar with context %}
+<div class="row">
+	<div class="col-md-6">
+		<div role="complementary">
+			<form id="f_search" name="f_search" method="get" onsubmit="javascript:A.search()">
+				<ul class="nav nav-stacked nav-pills">
+					<li>
+						<div class="input-group">
+							<input id="k" name="k" value="{{k|default('')}}" class="form-control" placeholder="演员/番号/片名"> 
+							<span class="input-group-btn">
+								<button class="btn btn-success" type="submit">&nbsp;Goooo!&nbsp;</button>
+							</span>
+						</div>
+						<div class="mb12"></div></li>
+					<li class="panel-group" id="category_list">
+						{% for group in categories|groupby('category') %}
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<div class="panel-title ellipsis">
+									<a class="accordion-toggle {% if not loop.first %}collapsed{% endif %}" 
+									    data-toggle="collapse" href="#clp_g_{{loop.index}}">
+									    {{group.grouper}}</a>
+								</div>
+							</div>
+							<div id="clp_g_{{loop.index}}" class="panel-collapse collapse {% if loop.first %}in{% endif %}">
+								<div class="panel-body">
+									<div>
+									    <span class="ml10"></span>
+										{% for tag in group.list %} 
+									    <label class="checkbox-inline">
+									        <input name="tags" type="checkbox" value="{{tag.id}}"
+									           {% if tag.id in tags %}checked="checked"{%endif%}>{{tag.name }}
+										</label> 
+										{% endfor %}
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</li>
+				</ul>
+			</form>
+		</div>
+	</div>
+	<div class="col-md-6">
+	    <div class="row">
+            <div class="col-md-12">{{ pagebar(pagination, 'f_search') }}</div>
+        </div>
+        <div class="row mb12">
+            <div class="col-md-12">
+			<div class="panel-group" id="av_list">
+				{% for av in pagination.items %}
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<div class="panel-title ellipsis">
+							<span class="label label-primary">{{av.code}}</span> <a
+								class="accordion-toggle {% if not loop.first %}collapsed{% endif %}" data-toggle="collapse"
+								data-parent="#av_list" href="#collapse_{{av.code}}"> <span>{{av.title}}</span>
+							</a>
+						</div>
+					</div>
+					<div id="collapse_{{av.code}}"
+                       class="panel-collapse collapse {% if loop.first %}in{% endif %}" >
+                        <div class="panel-body">
+                            <div class="row mb6">
+                                <div class="col-md-2">
+                                    <span class="">番 &nbsp;&nbsp;号：</span>
+                                </div>
+                                <div class="col-md-10">
+                                    <a href='/a/{{av.code}}'>{{av.code}}
+                                        <span class="glyphicon glyphicon-open"></span></a>
+                                        <span class="text-warning"><strong>(详情页面/磁力/BT)</strong></span></div>
+                            </div>
+                            <div class="row mb6">
+                            	<div class="col-md-2">
+                                    <span class="">教 &nbsp;&nbsp;材：</span></div>
+                                <div class="col-md-10">{{av.title}}</div>
+                            </div>
+                            <div class="row mb6">
+                                <div class="col-md-2">
+                                    <span class="">发行商：</span>
+                                </div>
+                                <div class="col-md-10">{{av.publisher}}</div>
+                            </div>
+                            <div class="row mb6">
+                                <div class="col-md-2">
+                                    <span class="">发行日：</span>
+                                </div>
+                                <div class="col-md-10">{{av.published_on}}</div>
+                            </div>
+                            <div class="row mb6">
+                                <div class="col-md-2">
+                                    <span class="">片&nbsp;&nbsp; 长：</span>
+                                </div>
+                                <div class="col-md-10">{{av.length}}分钟</div>
+                            </div>
+                            <div class="row mb6">
+                                <div class="col-md-2">
+                                    <span class="">演 &nbsp;&nbsp;员：</span>
+                                </div>
+                                <div class="col-md-10">
+                                {% for actor in av.actors %}
+                                    <a href="/b/?k={{actor.name}}">{{actor.name}}<span class="glyphicon glyphicon-open"></a>{% if not loop.last %},{% endif %}
+                                {% endfor %}
+                                </div>
+                            </div>
+							<div class="row mb6">
+								<div class="col-md-2">
+									<span class="">分&nbsp;&nbsp; 类：</span>
+								</div>
+								<div class="col-md-10">
+									{% for tag in av.tags %} 
+									   <a href="/a/?tags={{tag.id}}">
+									       {{tag.name}}<span class="glyphicon glyphicon-open">
+									   </a>{% if not loop.last%},{% endif %} {% endfor%}
+								</div>
+							</div>
+						</div>
+					    <div class="panel-footer">
+					       <a href="http://redirect.simba.taobao.com/rd?w=unionnojs&f=http%3A%2F%2Fre.taobao.com%2Feauction%3Fe%3Dqs2opueddu7ghojqVNxKsc1Y8WvanG%252BIMfQZMlUm0uSLltG5xFicOSZqewpHPyZzSZje855cVU05o7Uu3bB4%252FVZatX8ks5V8%26ptype%3D100010&k=e2e107a2b72ca1b1&c=un&b=alimm_0&p=mm_26043410_0_0">
+					           <span class="text-success">撸管必备神器，这才是真的爽 :), 查看 <span class="glyphicon glyphicon-open"></span></span>
+					       </a>
+					    </div>
+                    </div>
+				</div>
+				{% endfor %}
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+            <div class="col-md-12">{{ pagebar(pagination, 'f_search') }}</div>
+        </div>
+		
+	</div>
+</div>
+{% endblock %}
+

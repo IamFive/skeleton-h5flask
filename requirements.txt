@@ -1,0 +1,15 @@
+Flask
+Werkzeug
+markdown
+Flask-Assets
+Flask-Script
+flask-testing
+Flask-Uploads
+Flask-login
+sqlalchemy
+flask-sqlalchemy
+colander
+ColanderAlchemy
+#ac-client
+cssmin
+PyYAML

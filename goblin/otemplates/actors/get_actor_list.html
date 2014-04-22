@@ -1,0 +1,96 @@
+{% extends "basic.html" %} 
+{% block title %} AV女优 - [这里有你的女神] {% endblock title %} 
+{% block script_import %}
+<script type="text/javascript" src="/static/js/modules/actors.js"></script>
+{% endblock script_import%}
+{% block content %}
+{% from '/marco/pagination.html' import pagebar with context %}
+<div class="mt20">
+    <div class="alert alert-warning text-center">
+        <strong>图片还在整理收集中</strong>
+    </div>
+</div>
+<div class="row mb20" >
+    <div class="row mb6">
+        <div class="col-md-6 col-md-offset-2">
+            <form id="f_search" name="f_search" method="get" onsubmit="javascript:Actors.search()">
+                <div class="input-group input-group-lg">
+                    <input id="k" name="k" value="{{k|default('', True)}}" class="form-control input-lg" placeholder="演员"> <span
+                        class="input-group-btn">
+                        <button class="btn btn-success" type="submit">&nbsp;Goooo!&nbsp;</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+       <div class="col-md-6 col-md-offset-2">
+            <p class="text-muted">
+                <small>-- 演员名字是日文的，比如说 <code>苍井空</code> 空实际上是 <code>蒼井そら</code> ,你可以直接搜索 <code>井</code></small>
+            </p>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row" id="actor_list">
+    <div class="col-md-8">
+        <div class="row">
+            {% for actor in pagination.items %}
+             <div class="col-sm-4 col-md-3 mb12">
+                 <div class="thumbnail{% if loop.first %} thumbnail-info{% endif %}">
+                     {% if actor.avatar %}
+                     <img alt="头像" src="/m/avatar/{{actor.avatar}}" class="img-rounded avatar">
+                     {% else %}
+                     <img alt="头像" src="/m/avatar/0.jpg" class="img-rounded avatar">
+                     {% endif %}
+                     <div class="caption text-center">
+                         <a id="actor_{{actor.id}}_link" href="#a{{actor.id}}" itemprop="collapse" group="actor">
+                            {{actor.name}}
+                         </a>
+                     </div>
+                 </div>
+             </div>
+            {% endfor %}
+        </div>
+    </div>
+	<div class="col-md-4">
+		{% for actor in pagination.items %}
+		<div id="a{{actor.id}}" group="actor" itemprop="collapse-content"
+		   class="panel panel-info {% if not loop.first %}collapse{% endif %}{% if loop.first %}in{% endif %}">
+			<div class="panel-heading">演员信息</div>
+			<div class="panel-body">
+				<dl class="dl-horizontal dt80">
+					<dt>名字:</dt>
+					<dd>
+					   {{actor.name}}
+					</dd>
+					<dt>出生:</dt>
+					<dd>{{actor.birth | mute('暂无数据') | safe}}</dd>
+					<dt>身高:</dt>
+					<dd>{{actor.height | mute('暂无数据') | safe}}</dd>
+					<dt>体重:</dt>
+					<dd>{{actor.weight | mute('暂无数据') | safe}}</dd>
+					<dt>罩杯:</dt>
+					<dd>{{actor.cup | mute('暂无数据') | safe}}</dd>
+					<dt>胸围:</dt>
+					<dd>{{actor.chest | mute('暂无数据') | safe}}</dd>
+					<dt>腰围:</dt>
+					<dd>{{actor.waist | mute('暂无数据') | safe}}</dd>
+					<dt>臀围:</dt>
+					<dd>{{actor.hip | mute('暂无数据') | safe}}</dd>
+				</dl>
+			</div>
+			<div class="panel-footer">
+				<button type="button" class="btn btn-success"
+				    onclick="javascript:Actors.getvideos('{{actor.name}}')">查看作品</button>
+			</div>
+		</div>
+	   {% endfor %}
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">{{ pagebar(pagination, 'f_search') }}</div>
+</div>
+{% endblock %}
+

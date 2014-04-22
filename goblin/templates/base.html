@@ -1,0 +1,65 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>D2 - {% block title %}进击{% endblock %}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <script type="text/javascript">
+        	var v = '{{v}}';
+        	var debug = '{{debug}}' === 'True';
+        	if(debug) v = new Date().getTime();
+        </script>
+
+        <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+        <!-- Fav icon -->
+		<link rel="shortcut icon" href="/s/favicon.ico" type="image/x-icon">
+		<link rel="icon" href="/s/favicon.ico" type="image/x-icon">
+
+        <link rel="stylesheet" href="/s/css/normalize.css">
+        <link rel="stylesheet" href="/s/css/main.css">
+        {% block pagecss %}{% endblock %}
+        <script src="/s/js/libs/modernizr/modernizr-2.7.1.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <p>Hello world! This is HTML5 Boilerplate.</p>
+        
+
+		<!-- jQuery, dont want to use requirejs's map, so just put jQuery import here. -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/s/js/libs/jquery/jquery-1.11.0.min.js"><\/script>')</script>
+        <script src="/s/js/libs/console/plugins.js"></script>
+		<script type="text/javascript" src="/s/js/libs/jquery/jquery-migrate-1.2.1.min.js"></script>
+		<script type="text/javascript" src="/s/js/libs/jquery/jquery.extends.js"></script>
+		
+		<script type="text/javascript" src="/s/js/libs/json3/json3.min.js"></script>
+		
+		<script type="text/javascript" src="/s/js/libs/underscore/underscore-1.6.min.js"></script>
+		
+		{% block pagejs %}{% endblock %}
+		
+		<!-- require js -->
+		<script type="text/javascript" src="/s/js/rc.js"></script>
+		<script type="text/javascript" src="/s/js/libs/require/require.js" 
+			data-main="{% block mainjs %}{% endblock %}" ></script>
+		
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. 
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+        -->
+    </body>
+</html>
