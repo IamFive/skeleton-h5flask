@@ -21,7 +21,7 @@ def send_email(to, subject):
     smtp_server = 'smtp.163.com'
     smtp_port = 25
     smtp_use_tls = False
-    smtp_pass = 'asdqwe123'
+    smtp_pass = 'xxxxxx'
 
     by = smtp_user
 
